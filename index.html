@@ -52,11 +52,11 @@
       position: absolute;
       left: 0;
       top: 0;
-      transition: transform 0.3s ease-in-out;
+      transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
     }
 
     #sidebar.collapsed {
-      transform: translateX(-100%);
+      width: 60px;
     }
 
     #toggle-sidebar {
@@ -70,20 +70,30 @@
       border: none;
       padding: 10px 15px;
       border-radius: 5px;
+      transition: left 0.3s ease-in-out;
+    }
+
+    #sidebar.collapsed + #toggle-sidebar {
+      left: 60px;
     }
 
     iframe {
       border: none;
-      width: 100%;
+      width: calc(100% - 250px); /* Adjust width when sidebar is expanded */
       height: 80vh;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
+      transition: width 0.3s ease-in-out;
+    }
+
+    #sidebar.collapsed ~ #main-content iframe {
+      width: calc(100% - 60px); /* Adjust width when sidebar is collapsed */
     }
 
     /* Media queries for responsive design */
     @media (max-width: 768px) {
       #toggle-sidebar {
-        left: 20px;
+        left: 60px;
       }
     }
   </style>
