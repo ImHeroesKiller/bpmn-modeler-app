@@ -126,10 +126,15 @@
     // Function to download the file
     function downloadFile(content, fileName, mimeType) {
       var blob = new Blob([content], { type: mimeType });
-      var link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = fileName;
-      link.click();
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
     }
 
     // Save as BPMN
