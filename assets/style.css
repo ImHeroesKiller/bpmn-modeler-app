@@ -1,0 +1,61 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Body Styling */
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* App Container */
+#app {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styling */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #3a86ff;
+}
+
+header p {
+    color: #555;
+}
+
+/* Main Canvas Styling */
+main {
+    position: relative;
+    height: 600px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Canvas Container */
+#canvas {
+    height: 100%;
+    width: 100%;
+}
