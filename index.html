@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BPMN Modeler</title>
+
+  <!-- Required BPMN modeler styles -->
+  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/diagram-js.css" />
+  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/bpmn-js.css" />
+  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/bpmn-font/css/bpmn.css" />
+
+  <!-- Custom Styles -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    #app {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #3a86ff;
+    }
+
+    header p {
+      color: #666;
+    }
+
+    #canvas {
+      height: 600px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+    }
+
+    #buttons {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #3a86ff;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+      #canvas {
+        height: 400px;
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+    <header>
+      <h1>BPMN Modeler</h1>
+      <p>Create, edit, and save your BPMN diagrams as .bpmn and .svg</p>
+    </header>
+
+    <div id="canvas"></div>
+
+    <div id="buttons">
+      <button id="save-bpmn">Save as BPMN</button>
+      <button id="save-svg">Save as SVG</button>
+    </div>
+  </div>
+
+  <!-- BPMN Modeler Library -->
+  <script src="https://unpkg.com/bpmn-js@17.9.0/dist/bpmn-modeler.development.js"></script>
+
+  <script>
+    var bpmnModeler = new BpmnJS({
+      container: '#canvas'
+    });
+
+    // Create a blank BPMN diagram
+    bpmnModeler.createDiagram();
+
+    // Function to download the file
+    function downloadFile(content, fileName, mimeType) {
+      var blob = new Blob([content], { type: mimeType });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = fileName;
+      link.click();
+    }
+
+    // Save as BPMN
+    document.getElementById('save-bpmn').addEventListener('click', function() {
+      bpmnModeler.saveXML({ format: true }, function(err, xml) {
+        if (err) {
+          console.error('Could not save BPMN 2.0 diagram', err);
+        } else {
+          downloadFile(xml, 'diagram.bpmn', 'application/xml');
+        }
+      });
+    });
+
+    // Save as SVG
+    document.getElementById('save-svg').addEventListener('click', function() {
+      bpmnModeler.saveSVG(function(err, svg) {
+        if (err) {
+          console.error('Could not save SVG', err);
+        } else {
+          downloadFile(svg, 'diagram.svg', 'image/svg+xml');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
