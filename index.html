@@ -101,14 +101,14 @@
   <div id="app">
     <header>
       <h1>BPMN Modeler</h1>
-      <p>Create, edit, and save your BPMN diagrams as .bpmn and .svg</p>
+      <p>Create, edit, and save your BPMN diagrams as .svg and .png</p>
     </header>
 
     <div id="canvas"></div>
 
     <div id="buttons">
-      <button id="save-bpmn">Save as BPMN</button>
       <button id="save-svg">Save as SVG</button>
+      <button id="save-png">Save as PNG</button>
     </div>
   </div>
 
@@ -137,17 +137,6 @@
       document.body.removeChild(a);
     }
 
-    // Save as BPMN
-    document.getElementById('save-bpmn').addEventListener('click', function() {
-      bpmnModeler.saveXML({ format: true }, function(err, xml) {
-        if (err) {
-          console.error('Could not save BPMN 2.0 diagram', err);
-        } else {
-          downloadFile(xml, 'diagram.bpmn', 'application/xml');
-        }
-      });
-    });
-
     // Save as SVG
     document.getElementById('save-svg').addEventListener('click', function() {
       bpmnModeler.saveSVG(function(err, svg) {
@@ -155,6 +144,47 @@
           console.error('Could not save SVG', err);
         } else {
           downloadFile(svg, 'diagram.svg', 'image/svg+xml');
+        }
+      });
+    });
+
+    // Save as PNG
+    document.getElementById('save-png').addEventListener('click', function() {
+      bpmnModeler.saveSVG(function(err, svg) {
+        if (err) {
+          console.error('Could not save SVG', err);
+        } else {
+          // Create a canvas to convert the SVG to PNG
+          var canvas = document.createElement('canvas');
+          var context = canvas.getContext('2d');
+
+          var img = new Image();
+          var svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+          var url = URL.createObjectURL(svgBlob);
+
+          img.onload = function() {
+            // Set canvas size same as the image
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            // Draw the image (SVG) on the canvas
+            context.drawImage(img, 0, 0);
+
+            // Convert canvas to PNG and trigger download
+            canvas.toBlob(function(blob) {
+              var url = URL.createObjectURL(blob);
+              var a = document.createElement('a');
+              a.style.display = 'none';
+              a.href = url;
+              a.download = 'diagram.png';
+              document.body.appendChild(a);
+              a.click();
+              URL.revokeObjectURL(url);
+              document.body.removeChild(a);
+            }, 'image/png');
+          };
+
+          img.src = url;
         }
       });
     });
