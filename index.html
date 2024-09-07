@@ -1,30 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BPMN Modeler</title>
 
+  <!-- Required BPMN modeler styles -->
   <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/diagram-js.css" />
   <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/bpmn-js.css" />
   <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/bpmn-font/css/bpmn.css" />
+
+  <!-- Custom Styles for a modern and minimalist design -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    #app {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #3a86ff;
+    }
+
+    header p {
+      color: #666;
+    }
+
+    #canvas {
+      height: 600px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+    }
+
+    /* Make it responsive */
+    @media (max-width: 768px) {
+      #canvas {
+        height: 400px;
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <div id="canvas"></div>
+  <div id="app">
+    <header>
+      <h1>BPMN Modeler</h1>
+      <p>Create, edit, and visualize your BPMN diagrams easily</p>
+    </header>
 
+    <div id="canvas"></div>
+  </div>
+
+  <!-- BPMN Modeler Library -->
   <script src="https://unpkg.com/bpmn-js@17.9.0/dist/bpmn-modeler.development.js"></script>
   <script>
-
-    // you may also import the modeler via CommonJS:
-    // const BpmnModeler = require('bpmn-js/lib/Modeler');
-
     var bpmnModeler = new BpmnJS({
       container: '#canvas'
     });
 
-    // create blank diagram
+    // Create a blank BPMN diagram
     bpmnModeler.createDiagram();
-
   </script>
+
 </body>
 </html>
