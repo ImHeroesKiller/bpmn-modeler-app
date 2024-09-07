@@ -26,6 +26,7 @@
       height: 500px;
       border: 1px solid #ccc;
       border-radius: 8px;
+      position: relative;
     }
 
     #js-drop-zone {
@@ -58,6 +59,24 @@
     input[type="file"] {
       display: none;
     }
+
+    /* Ensure the toolbar is visible */
+    .bjs-container .djs-controls {
+      display: block;
+      z-index: 10; /* Ensure it is above other elements */
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    /* Optional: Customize the toolbar style */
+    .djs-controls {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
   </style>
 
   <link rel="stylesheet" href="https://unpkg.com/bpmn-js@9.0.3/dist/assets/diagram-js.css" />
