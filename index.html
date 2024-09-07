@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern BPMN Modeler</title>
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://unpkg.com;">
+
     <!-- Import Modeler Styles -->
     <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/diagram-js.css" />
     <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/bpmn-js.css" />
     <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/bpmn-font/css/bpmn.css" />
+    
     <!-- Custom Styles -->
     <link rel="stylesheet" href="assets/style.css" />
 </head>
@@ -28,55 +33,41 @@
     <script src="https://unpkg.com/bpmn-js@17.9.0/dist/bpmn-modeler.development.js"></script>
 
     <script>
-    var BpmnModeler = window.BpmnJS;
+        var BpmnModeler = window.BpmnJS;
 
-    // Inisialisasi modeler dengan fitur keyboard dan mode edit yang aktif
-    var modeler = new BpmnModeler({
-        container: '#canvas',
-        keyboard: {
-            bindTo: window
-        }
-    });
+        var modeler = new BpmnModeler({
+            container: '#canvas',
+            keyboard: {
+                bindTo: window
+            }
+        });
 
-    // Diagram baru untuk memastikan bisa diedit
-    var newDiagram = `<?xml version="1.0" encoding="UTF-8"?>
-    <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
-                      xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-                      xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
-                      xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
-                      id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
-      <bpmn:process id="Process_1" isExecutable="false">
-        <bpmn:startEvent id="StartEvent_1"/>
-      </bpmn:process>
-      <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
-          <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
-            <dc:Bounds x="173" y="102" width="36" height="36"/>
-          </bpmndi:BPMNShape>
-        </bpmndi:BPMNPlane>
-      </bpmndi:BPMNDiagram>
-    </bpmn:definitions>`;
+        var newDiagram = `<?xml version="1.0" encoding="UTF-8"?>
+        <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                          xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                          xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                          xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                          id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+          <bpmn:process id="Process_1" isExecutable="false">
+            <bpmn:startEvent id="StartEvent_1"/>
+          </bpmn:process>
+          <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+            <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+              <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+                <dc:Bounds x="173" y="102" width="36" height="36"/>
+              </bpmndi:BPMNShape>
+            </bpmndi:BPMNPlane>
+          </bpmndi:BPMNDiagram>
+        </bpmn:definitions>`;
 
-    // Import diagram ke dalam canvas
-    modeler.importXML(newDiagram, function(err) {
-        if (err) {
-            console.error('could not import BPMN 2.0 diagram', err);
-        } else {
-            console.log('BPMN diagram imported and ready for editing');
-            
-            // Zoom canvas untuk memastikan terlihat dengan baik
-            modeler.get('canvas').zoom('fit-viewport');
-        }
-    });
-
-    // Menangani event input atau click agar bisa mengedit node
-    modeler.on('element.click', function(event) {
-        console.log('Element clicked:', event.element);
-        // Logika untuk mengedit elemen diagram
-    });
-
-</script>
-
+        modeler.importXML(newDiagram, function(err) {
+            if (err) {
+                console.error('could not import BPMN 2.0 diagram', err);
+            } else {
+                modeler.get('canvas').zoom('fit-viewport');
+            }
+        });
+    </script>
 
 </body>
 </html>
