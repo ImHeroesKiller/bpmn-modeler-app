@@ -1,76 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern BPMN Modeler</title>
+  <meta charset="UTF-8">
+  <title>BPMN Modeler</title>
 
-    <!-- Content Security Policy with unsafe-inline -->
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://unpkg.com 'unsafe-inline';">
-
-    <!-- Required modeler styles -->
-    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/diagram-js.css" />
-    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/bpmn-js.css" />
-    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/bpmn-font/css/bpmn.css" />
-
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/diagram-js.css" />
+  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/bpmn-js.css" />
+  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.9.0/dist/assets/bpmn-font/css/bpmn.css" />
 </head>
 <body>
 
-    <div id="app">
-        <header>
-            <h1>BPMN Modeler</h1>
-            <p>Simple, Modern, and Minimalistic Design</p>
-        </header>
+  <div id="canvas"></div>
 
-        <main>
-            <div id="canvas" style="height: 600px; width: 100%;"></div>
-        </main>
-    </div>
+  <script src="https://unpkg.com/bpmn-js@17.9.0/dist/bpmn-modeler.development.js"></script>
+  <script>
 
-    <!-- BPMN Modeler Library -->
-    <script src="https://unpkg.com/bpmn-js@17.9.0/dist/bpmn-modeler.development.js"></script>
+    // you may also import the modeler via CommonJS:
+    // const BpmnModeler = require('bpmn-js/lib/Modeler');
 
-    <!-- Inline Script (Unsafe) -->
-    <script>
-        // Initialize the BPMN Modeler
-        var bpmnModeler = new BpmnJS({
-            container: '#canvas',
-            keyboard: {
-                bindTo: window
-            }
-        });
+    var bpmnModeler = new BpmnJS({
+      container: '#canvas'
+    });
 
-        // Load an empty diagram for editing
-        var newDiagram = `<?xml version="1.0" encoding="UTF-8"?>
-        <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
-                          xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-                          xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
-                          xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
-                          id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
-          <bpmn:process id="Process_1" isExecutable="false">
-            <bpmn:startEvent id="StartEvent_1" />
-          </bpmn:process>
-          <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-            <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
-              <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
-                <dc:Bounds x="173" y="102" width="36" height="36" />
-              </bpmndi:BPMNShape>
-            </bpmndi:BPMNPlane>
-          </bpmndi:BPMNDiagram>
-        </bpmn:definitions>`;
+    // create blank diagram
+    bpmnModeler.createDiagram();
 
-        // Import the diagram into the modeler
-        bpmnModeler.importXML(newDiagram, function(err) {
-            if (err) {
-                console.error('Error importing BPMN diagram:', err);
-            } else {
-                console.log('BPMN diagram imported successfully!');
-                bpmnModeler.get('canvas').zoom('fit-viewport');
-            }
-        });
-    </script>
-
+  </script>
 </body>
 </html>
